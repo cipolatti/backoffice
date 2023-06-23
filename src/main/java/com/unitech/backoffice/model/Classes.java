@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Table(name = "classes")
@@ -36,6 +37,16 @@ public class Classes {
         this.id = classes.getId();
         this.title = classes.getTitle();
         this.expectedClassDate = classes.getExpectedClassDate();
+    }
+
+    public Classes(List<Classes> classes) {
+        for (Classes item:classes) {
+            this.id = item.getId();
+            this.title = item.getTitle();
+            this.descrition = item.getDescrition();
+            this.expectedClassDate = item.getExpectedClassDate();
+            this.idTeacher = item.getIdTeacher();
+        }
     }
 
     public void updateInfo(UpdateClassesDto data) {

@@ -1,7 +1,9 @@
 package com.unitech.backoffice.controller;
 
 import com.unitech.backoffice.dto.teacher.*;
+import com.unitech.backoffice.model.Classes;
 import com.unitech.backoffice.model.Teacher;
+import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -18,6 +20,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class TeacherController {
     @Autowired
     private TeacherRepository repository;
+
+    @Autowired
+    private ClassesRepository classesRepository;
 
     @PostMapping
     @Transactional
@@ -50,4 +55,10 @@ public class TeacherController {
         return ResponseEntity.ok(new DetailsTeacherDto(teacher));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity detail(@PathVariable Long id) {
+        var teacher = repository.getReferenceById(id);
+        var classes = classesRepository.findByIdTeacher(id);
+        return ResponseEntity.ok(new DetailTeacherClassDto(teacher, classes));
+    }
 }
