@@ -1,8 +1,8 @@
-package com.unitech.backoffice.dto;
+package com.unitech.backoffice.dto.classes;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DataRegisterClass(
+public record RegisterClassesDto(
         @NotBlank
         String title,
         @NotBlank

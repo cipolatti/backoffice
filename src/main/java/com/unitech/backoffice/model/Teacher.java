@@ -1,6 +1,8 @@
 package com.unitech.backoffice.model;
 
-import com.unitech.backoffice.dto.DataRegisterTeacher;
+import com.unitech.backoffice.dto.teacher.RegisterTeacherDto;
+import com.unitech.backoffice.dto.teacher.UpdateTeacherDto;
+import com.unitech.backoffice.dto.teacher.UpdateTeacherStatusDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,17 +25,28 @@ public class Teacher {
     private String password;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @OneToMany
-    @JoinTable(name="teacher_has_classes", joinColumns=
-            {@JoinColumn(name="teacher_id")}, inverseJoinColumns=
-            {@JoinColumn(name="classes_id")})
-    private List<Classes> listClasses;
 
-    public Teacher(DataRegisterTeacher data) {
+    public Teacher(RegisterTeacherDto data) {
         this.name = data.name();
         this.login = data.login();
         this.password = data.password();
         this.status = Status.PENDING;
+    }
+
+    public void updateInfo(UpdateTeacherDto data) {
+        if(data.name() != null){
+            this.name = data.name();
+        }
+        if(data.login() != null){
+            this.login = data.login();
+        }
+        if(data.password() != null){
+            this.password = data.password();
+        }
+    }
+
+    public void updateStatus(UpdateTeacherStatusDto data) {
+        this.status = data.status();
     }
 
     @Override

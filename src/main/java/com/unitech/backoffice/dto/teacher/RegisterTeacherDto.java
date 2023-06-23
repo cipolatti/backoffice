@@ -1,8 +1,8 @@
-package com.unitech.backoffice.dto;
+package com.unitech.backoffice.dto.teacher;
 
 import jakarta.validation.constraints.*;
 
-public record DataRegisterTeacher(
+public record RegisterTeacherDto(
         @NotBlank
         String name,
         @NotBlank

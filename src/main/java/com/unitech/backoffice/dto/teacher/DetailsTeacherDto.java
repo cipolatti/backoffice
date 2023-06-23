@@ -1,10 +1,10 @@
-package com.unitech.backoffice.dto;
+package com.unitech.backoffice.dto.teacher;
 
 import com.unitech.backoffice.model.Status;
 import com.unitech.backoffice.model.Teacher;
 
-public record DataListTeacher(Long id, String name, String login, Status status) {
-    public DataListTeacher(Teacher teacher){
+public record DetailsTeacherDto(Long id, String name, String login, Status stastus) {
+    public DetailsTeacherDto(Teacher teacher) {
         this(teacher.getId(), teacher.getName(), teacher.getLogin(), teacher.getStatus());
     }
 }

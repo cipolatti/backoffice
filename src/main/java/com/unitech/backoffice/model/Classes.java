@@ -1,6 +1,7 @@
 package com.unitech.backoffice.model;
 
-import com.unitech.backoffice.dto.DataRegisterClass;
+import com.unitech.backoffice.dto.classes.RegisterClassesDto;
+import com.unitech.backoffice.dto.classes.UpdateClassesDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,11 +22,32 @@ public class Classes {
     private String descrition;
     @Column(name = "expected_class_date")
     private String expectedClassDate;
+    @Column(name = "id_teacher")
+    private Long idTeacher;
 
-    public Classes(DataRegisterClass data) {
+    public Classes(RegisterClassesDto data) {
         this.title = data.title();
         this.descrition = data.descrition();
         this.expectedClassDate = data.expectedClassDate();
+    }
+
+    public void updateInfo(UpdateClassesDto data) {
+        if(data.title() != null){
+            this.title = data.title();
+        }
+        if(data.descrition() != null){
+            this.descrition = data.descrition();
+        }
+        if(data.expectedClassDate() != null){
+            this.expectedClassDate = data.expectedClassDate();
+        }
+
+    }
+
+    public Classes(Classes classes) {
+        this.id = classes.getId();
+        this.title = classes.getTitle();
+        this.expectedClassDate = classes.getExpectedClassDate();
     }
 
     @Override
