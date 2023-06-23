@@ -1,5 +1,6 @@
 package com.unitech.backoffice.model;
 
+import com.unitech.backoffice.dto.classes.LinkClassTeacherDto;
 import com.unitech.backoffice.dto.classes.RegisterClassesDto;
 import com.unitech.backoffice.dto.classes.UpdateClassesDto;
 import jakarta.persistence.*;
@@ -31,6 +32,12 @@ public class Classes {
         this.expectedClassDate = data.expectedClassDate();
     }
 
+    public Classes(Classes classes) {
+        this.id = classes.getId();
+        this.title = classes.getTitle();
+        this.expectedClassDate = classes.getExpectedClassDate();
+    }
+
     public void updateInfo(UpdateClassesDto data) {
         if(data.title() != null){
             this.title = data.title();
@@ -41,13 +48,10 @@ public class Classes {
         if(data.expectedClassDate() != null){
             this.expectedClassDate = data.expectedClassDate();
         }
-
     }
 
-    public Classes(Classes classes) {
-        this.id = classes.getId();
-        this.title = classes.getTitle();
-        this.expectedClassDate = classes.getExpectedClassDate();
+    public void linkClassTeacher(LinkClassTeacherDto data) {
+        this.idTeacher = data.idTeacher();
     }
 
     @Override
