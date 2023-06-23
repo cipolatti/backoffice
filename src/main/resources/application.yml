@@ -4,3 +4,7 @@ spring:
     url: jdbc:mysql://localhost/backoffice?createDatabaseIfNotExist=true
     username: root
     password: password
+
+server:
+  error:
+    include-stacktrace: never

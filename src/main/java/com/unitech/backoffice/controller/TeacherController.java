@@ -39,6 +39,13 @@ public class TeacherController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity detail(@PathVariable Long id) {
+        var teacher = repository.getReferenceById(id);
+        var classes = classesRepository.findByIdTeacher(id);
+        return ResponseEntity.ok(new DetailTeacherClassDto(teacher, classes));
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity update(@RequestBody @Valid UpdateTeacherDto data) {
@@ -53,12 +60,5 @@ public class TeacherController {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateStatus(data);
         return ResponseEntity.ok(new DetailsTeacherDto(teacher));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity detail(@PathVariable Long id) {
-        var teacher = repository.getReferenceById(id);
-        var classes = classesRepository.findByIdTeacher(id);
-        return ResponseEntity.ok(new DetailTeacherClassDto(teacher, classes));
     }
 }
