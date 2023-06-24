@@ -12,4 +12,4 @@ server:
 api:
   security:
     token:
-      secret: ${SECRET_JWT:9876543210}
+      secret: ${SECRET_JWT:98hb5PeR43EWqd2v10}
