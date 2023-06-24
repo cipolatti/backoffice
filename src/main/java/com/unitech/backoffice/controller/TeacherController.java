@@ -1,7 +1,6 @@
 package com.unitech.backoffice.controller;
 
 import com.unitech.backoffice.dto.teacher.*;
-import com.unitech.backoffice.model.Classes;
 import com.unitech.backoffice.model.Teacher;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,6 +26,7 @@ public class TeacherController {
 
     @PostMapping
     @Transactional
+    @Secured("ROLE_ADMIN")
     public ResponseEntity register(@RequestBody @Valid RegisterTeacherDto data, UriComponentsBuilder uriBuilder) {
         var teacher = new Teacher(data);
         repository.save(teacher);
@@ -34,6 +35,7 @@ public class TeacherController {
     }
 
     @GetMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Page<ListTeacherDto>> getAll(@PageableDefault(size = 10) Pageable pagination) {
         var page = repository.findAll(pagination).map(ListTeacherDto::new);
         return ResponseEntity.ok(page);
@@ -48,6 +50,7 @@ public class TeacherController {
 
     @PutMapping
     @Transactional
+    @Secured("ROLE_ADMIN")
     public ResponseEntity update(@RequestBody @Valid UpdateTeacherDto data) {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateInfo(data);
@@ -56,6 +59,7 @@ public class TeacherController {
 
     @PatchMapping
     @Transactional
+    @Secured("ROLE_ADMIN")
     public ResponseEntity updateStatus(@RequestBody @Valid UpdateTeacherStatusDto data) {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateStatus(data);

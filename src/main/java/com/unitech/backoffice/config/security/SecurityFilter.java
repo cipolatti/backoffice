@@ -1,7 +1,6 @@
 package com.unitech.backoffice.config.security;
 
 import com.unitech.backoffice.repository.TeacherRepository;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

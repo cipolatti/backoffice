@@ -1,6 +1,7 @@
 package com.unitech.backoffice.dto.teacher;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record RegisterTeacherDto(
         @NotBlank

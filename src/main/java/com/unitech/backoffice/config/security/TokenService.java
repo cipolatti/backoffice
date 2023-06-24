@@ -14,6 +14,8 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
 
+    private static final String ISSUER = "API Unitech.backoffice";
+
     @Value("${api.security.token.secret}")
     private String secret;
 
@@ -21,7 +23,7 @@ public class TokenService {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("API Unitech.backoffice")
+                    .withIssuer(ISSUER)
                     .withSubject(teacher.getLogin())
                     .withExpiresAt(dateExpired())
                     .withClaim("id", teacher.getId())
@@ -36,7 +38,7 @@ public class TokenService {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("API Unitech.backoffice")
+                    .withIssuer(ISSUER)
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
