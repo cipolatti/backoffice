@@ -29,6 +29,7 @@ Tecnologias utilizadas
 
 - Java 17
 - Spring 3.1.0
+- Maven
 - Lombok
 - JPA
 - Flyway
