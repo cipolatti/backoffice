@@ -1,9 +1,9 @@
 package com.unitech.backoffice.dto.user;
 
-import com.unitech.backoffice.model.User;
+import com.unitech.backoffice.model.UserModel;
 
 public record DetailsUserDto(Long id, String name, String login) {
-    public DetailsUserDto(User user){
-        this(user.getId(), user.getName(), user.getLogin());
+    public DetailsUserDto(UserModel userModel){
+        this(userModel.getId(), userModel.getName(), userModel.getLogin());
     }
 }

@@ -3,18 +3,14 @@ package com.unitech.backoffice.model;
 import com.unitech.backoffice.dto.teacher.RegisterTeacherDto;
 import com.unitech.backoffice.dto.teacher.UpdateTeacherDto;
 import com.unitech.backoffice.dto.teacher.UpdateTeacherStatusDto;
+import com.unitech.backoffice.model.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Table(name = "teacher")
@@ -22,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Teacher {
+public class Teacher{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;

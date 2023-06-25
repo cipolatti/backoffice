@@ -2,6 +2,7 @@ package com.unitech.backoffice.controller;
 
 import com.unitech.backoffice.config.security.SecurityConfigurations;
 import com.unitech.backoffice.dto.teacher.*;
+import com.unitech.backoffice.model.AuthenticationService;
 import com.unitech.backoffice.model.Teacher;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,11 +23,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/teacher")
 public class TeacherController {
 
-    public TeacherController(PasswordEncoder encoder) {
-        this.encoder = encoder;
-    }
-
-    private PasswordEncoder encoder;
+    @Autowired
+    AuthenticationController authenticationController;
 
     @Autowired
     private TeacherRepository repository;
@@ -35,17 +34,14 @@ public class TeacherController {
 
     @PostMapping
     @Transactional
-    @Secured("ROLE_USER")
     public ResponseEntity register(@RequestBody @Valid RegisterTeacherDto data, UriComponentsBuilder uriBuilder) {
         var teacher = new Teacher(data);
-        teacher.setPassword(encoder.encode(teacher.getPassword()));
         repository.save(teacher);
         var uri = uriBuilder.path("/teacher/{id}").buildAndExpand(teacher.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailsTeacherDto(teacher));
     }
 
     @GetMapping
-    @Secured("ROLE_USER")
     public ResponseEntity<Page<ListTeacherDto>> getAll(@PageableDefault(size = 10) Pageable pagination) {
         var page = repository.findAll(pagination).map(ListTeacherDto::new);
         return ResponseEntity.ok(page);
@@ -60,7 +56,6 @@ public class TeacherController {
 
     @PutMapping
     @Transactional
-    @Secured("ROLE_USER")
     public ResponseEntity update(@RequestBody @Valid UpdateTeacherDto data) {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateInfo(data);
@@ -69,7 +64,6 @@ public class TeacherController {
 
     @PatchMapping
     @Transactional
-    @Secured("ROLE_USER")
     public ResponseEntity updateStatus(@RequestBody @Valid UpdateTeacherStatusDto data) {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateStatus(data);

@@ -1,9 +1,6 @@
 package com.unitech.backoffice.controller;
 
-import com.unitech.backoffice.dto.teacher.DetailsTeacherDto;
-import com.unitech.backoffice.dto.teacher.RegisterTeacherDto;
-import com.unitech.backoffice.model.Teacher;
-import com.unitech.backoffice.model.User;
+import com.unitech.backoffice.model.UserModel;
 import com.unitech.backoffice.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -35,7 +32,7 @@ public class UserController {
     @Transactional
     @Secured("ROLE_USER")
     public ResponseEntity register(@RequestBody @Valid RegisterUserDto data, UriComponentsBuilder uriBuilder) {
-        var user = new User(data);
+        var user = new UserModel(data);
         user.setPassword(encoder.encode(user.getPassword()));
         repository.save(user);
         var uri = uriBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();

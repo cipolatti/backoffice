@@ -1,7 +1,7 @@
 package com.unitech.backoffice.dto.teacher;
 
 import com.unitech.backoffice.model.Classes;
-import com.unitech.backoffice.model.Status;
+import com.unitech.backoffice.model.enums.Status;
 import com.unitech.backoffice.model.Teacher;
 
 import java.util.List;

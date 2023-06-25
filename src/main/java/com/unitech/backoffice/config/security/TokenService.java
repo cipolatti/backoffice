@@ -3,7 +3,7 @@ package com.unitech.backoffice.config.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.unitech.backoffice.model.User;
+import com.unitech.backoffice.model.UserModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +19,15 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(User user) {
+    public String generateToken(UserModel userModel) {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer(ISSUER)
-                    .withSubject(user.getLogin())
+                    .withSubject(userModel.getLogin())
                     .withExpiresAt(dateExpired())
-                    .withClaim("id", user.getId())
-                    .withClaim("name", user.getName())
+                    .withClaim("id", userModel.getId())
+                    .withClaim("name", userModel.getName())
                     .sign(algorithm);
         } catch (JWTCreationException exception){
             throw  new RuntimeException("Erro ao gerar o token jwt. ", exception);
