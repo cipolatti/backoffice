@@ -37,7 +37,15 @@ Tecnologias utilizadas
 - Spring Security
 - JWT
   
-Utilizado BCrypt para criptografia das senhas. 
+Utilizado BCrypt para criptografia das senhas.
+
+Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) para geração do token.
+
+{
+
+    "login": "admin",
+    "password": "123456789"
+}
 
   Exemplos de requisições e payload
 
