@@ -39,7 +39,7 @@ public class ClassController {
     }
 
     @GetMapping
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_USER_ADMIN")
     public ResponseEntity<Page<Classes>> getAll(@PageableDefault(size = 10, sort = {"expectedClassDate"}) Pageable pagination) {
         var page = repository.findAll(pagination).map(Classes::new);
         return ResponseEntity.ok(page);
@@ -47,7 +47,7 @@ public class ClassController {
 
     @PutMapping
     @Transactional
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_USER_ADMIN")
     public ResponseEntity update(@RequestBody @Valid UpdateClassesDto data) {
         var classes = repository.getReferenceById(data.id());
         classes.updateInfo(data);
@@ -56,7 +56,7 @@ public class ClassController {
 
     @PatchMapping
     @Transactional
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_USER_ADMIN")
     public ResponseEntity linkClassTeacher(@RequestBody @Valid LinkClassTeacherDto data) {
         var classes = repository.getReferenceById(data.id());
         var teacher = teacherRepository.getReferenceById(data.idTeacher());
