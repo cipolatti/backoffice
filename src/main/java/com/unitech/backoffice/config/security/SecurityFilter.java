@@ -1,6 +1,6 @@
 package com.unitech.backoffice.config.security;
 
-import com.unitech.backoffice.repository.TeacherRepository;
+import com.unitech.backoffice.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,15 +20,15 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var tokenJWT = this.getToken(request);
         if(tokenJWT != null) {
             var subject = tokenService.getSubject(tokenJWT);
-            var teacher = teacherRepository.findByLogin(subject);
-            var authentication = new UsernamePasswordAuthenticationToken(teacher, null, teacher.getAuthorities());
+            var user = userRepository.findByLogin(subject);
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

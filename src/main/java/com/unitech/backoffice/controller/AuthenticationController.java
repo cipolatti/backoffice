@@ -3,7 +3,7 @@ package com.unitech.backoffice.controller;
 import com.unitech.backoffice.config.security.DataTokenJWTDto;
 import com.unitech.backoffice.config.security.TokenService;
 import com.unitech.backoffice.dto.authentication.DataAuthenticationDto;
-import com.unitech.backoffice.model.Teacher;
+import com.unitech.backoffice.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody @Valid DataAuthenticationDto data) {
         var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authentication = manager.authenticate(token);
-        var tokenJWT = tokenService.generateToken((Teacher) authentication.getPrincipal());
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
         return ResponseEntity.ok(new DataTokenJWTDto(tokenJWT));
     }
 }

@@ -35,17 +35,17 @@ public class TeacherController {
 
     @PostMapping
     @Transactional
-    @Secured("ROLE_USER_ADMIN")
+    @Secured("ROLE_USER")
     public ResponseEntity register(@RequestBody @Valid RegisterTeacherDto data, UriComponentsBuilder uriBuilder) {
         var teacher = new Teacher(data);
-        teacher.setPassword(encoder.encode(data.password()));
+        teacher.setPassword(encoder.encode(teacher.getPassword()));
         repository.save(teacher);
         var uri = uriBuilder.path("/teacher/{id}").buildAndExpand(teacher.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailsTeacherDto(teacher));
     }
 
     @GetMapping
-    @Secured("ROLE_USER_ADMIN")
+    @Secured("ROLE_USER")
     public ResponseEntity<Page<ListTeacherDto>> getAll(@PageableDefault(size = 10) Pageable pagination) {
         var page = repository.findAll(pagination).map(ListTeacherDto::new);
         return ResponseEntity.ok(page);
@@ -60,7 +60,7 @@ public class TeacherController {
 
     @PutMapping
     @Transactional
-    @Secured("ROLE_USER_ADMIN")
+    @Secured("ROLE_USER")
     public ResponseEntity update(@RequestBody @Valid UpdateTeacherDto data) {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateInfo(data);
@@ -69,7 +69,7 @@ public class TeacherController {
 
     @PatchMapping
     @Transactional
-    @Secured("ROLE_USER_ADMIN")
+    @Secured("ROLE_USER")
     public ResponseEntity updateStatus(@RequestBody @Valid UpdateTeacherStatusDto data) {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateStatus(data);
