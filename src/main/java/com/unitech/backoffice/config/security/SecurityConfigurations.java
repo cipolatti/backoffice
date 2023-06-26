@@ -22,7 +22,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfigurations {
 
     @Autowired
@@ -35,10 +35,13 @@ public class SecurityConfigurations {
                     .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(req -> {
                         req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                        req.requestMatchers("/teacher").hasAuthority("ADMIN");
+                        req.requestMatchers("/class").hasAuthority("ADMIN");
+                        req.requestMatchers("/user").hasAuthority("ADMIN");
                         req.anyRequest().authenticated();
                     })
                     .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                   // .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
+                    .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -47,6 +50,7 @@ public class SecurityConfigurations {
 
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:8080");
         configuration.setAllowedMethods(List.of(
                 HttpMethod.GET.name(),
                 HttpMethod.PUT.name(),
