@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
@@ -23,15 +22,12 @@ public class Teacher{
     private Long id;
     private String name;
     private String login;
-    @Setter
-    private String password;
     @Enumerated(EnumType.STRING)
     private Status status;
 
     public Teacher(RegisterTeacherDto data) {
         this.name = data.name();
         this.login = data.login();
-        this.password = data.password();
         this.status = Status.PENDING;
     }
 
@@ -41,9 +37,6 @@ public class Teacher{
         }
         if(data.login() != null){
             this.login = data.login();
-        }
-        if(data.password() != null){
-            this.password = data.password();
         }
     }
 

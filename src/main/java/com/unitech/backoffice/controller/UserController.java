@@ -1,5 +1,7 @@
 package com.unitech.backoffice.controller;
 
+import com.unitech.backoffice.dto.user.DetailsUserDto;
+import com.unitech.backoffice.dto.user.RegisterUserDto;
 import com.unitech.backoffice.model.UserModel;
 import com.unitech.backoffice.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.unitech.backoffice.dto.user.RegisterUserDto;
-import com.unitech.backoffice.dto.user.DetailsUserDto;
 
 @RestController
 @RequestMapping("/user")

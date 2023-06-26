@@ -6,6 +6,5 @@ public record UpdateTeacherDto(
         @NotNull
         Long id,
         String name,
-        String login,
-        String password) {
+        String login) {
 }

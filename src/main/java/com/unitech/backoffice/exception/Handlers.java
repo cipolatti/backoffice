@@ -1,6 +1,7 @@
 package com.unitech.backoffice.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -43,6 +44,10 @@ public class Handlers {
     @ExceptionHandler(Exception.class)
     public ResponseEntity erro500(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity DataIntegrityViolationException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Já tem cadastro com este login!");
     }
 
     private record DataErrorDto(String field, String message) {

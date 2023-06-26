@@ -1,9 +1,8 @@
 package com.unitech.backoffice.controller;
 
-import com.unitech.backoffice.config.security.SecurityConfigurations;
 import com.unitech.backoffice.dto.teacher.*;
-import com.unitech.backoffice.model.AuthenticationService;
 import com.unitech.backoffice.model.Teacher;
+import com.unitech.backoffice.model.UserModel;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
 import jakarta.transaction.Transactional;
@@ -13,9 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -48,8 +45,15 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detail(@PathVariable Long id) {
+    public ResponseEntity detail(@PathVariable Long id, @AuthenticationPrincipal UserModel userModel) {
         var teacher = repository.getReferenceById(id);
+        var teacherDto = new RegisterTeacherDto(teacher.getName(), teacher.getLogin());
+        if(!userModel.getRoles().get(0).getRoleName().name().equals("ADMIN")) {
+            if (!userModel.getLogin().equalsIgnoreCase(teacherDto.login())) {
+                id = repository.findByLogin(userModel.getLogin());
+                teacher = repository.getReferenceById(id);
+            }
+        }
         var classes = classesRepository.findByIdTeacher(id);
         return ResponseEntity.ok(new DetailTeacherClassDto(teacher, classes));
     }
