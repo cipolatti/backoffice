@@ -53,11 +53,11 @@ Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) p
 
     Payload exemplo:
 
-  {
-  
-    "login": "professor@email.com",
-    "password": "8745165151"
-  }
+ {
+ 
+    "login": "silva@email.com",
+    "password": "123456789"
+ }
 
   - Cadastro de professor: [POST] http://localhost:8080/teacher
     
@@ -66,8 +66,7 @@ Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) p
 {
 
     "name": "Fulano",
-    "login": "fulano@email.com",
-    "password": "6548494Sd"
+    "login": "fulano@email.com"
     
 }
 
