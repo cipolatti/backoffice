@@ -26,7 +26,7 @@ public class UserModel implements UserDetails {
     private String login;
     @Setter
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -36,6 +36,12 @@ public class UserModel implements UserDetails {
         this.name = data.name();
         this.login = data.login();
         this.password = data.password();
+    }
+
+    public UserModel(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+          this.login = username;
+          this.password = password;
+          this.roles = (List<Role>) authorities;
     }
 
     @Override

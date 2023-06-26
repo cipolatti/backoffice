@@ -19,6 +19,6 @@ public class AuthenticationService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         UserModel userModel = userRepository.findByLogin(username);
-        return new User(userModel.getUsername(), userModel.getPassword(), true, true, true, true, userModel.getAuthorities());
+        return new UserModel(userModel.getUsername(), userModel.getPassword(), userModel.getAuthorities());
     }
 }
