@@ -3,6 +3,7 @@ package com.unitech.backoffice.controller;
 import com.unitech.backoffice.dto.teacher.*;
 import com.unitech.backoffice.model.TeacherModel;
 import com.unitech.backoffice.model.UserModel;
+import com.unitech.backoffice.model.validations.ValidateTeacherId;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,9 @@ public class TeacherController {
     @Autowired
     private ClassesRepository classesRepository;
 
+    @Autowired
+    ValidateTeacherId validateTeacherId;
+
     @PostMapping
     @Transactional
     public ResponseEntity register(@RequestBody @Valid RegisterTeacherDto data, UriComponentsBuilder uriBuilder) {
@@ -47,15 +51,8 @@ public class TeacherController {
     @GetMapping("/{id}")
     public ResponseEntity detail(@PathVariable Long id, @AuthenticationPrincipal UserModel userModel) {
         var teacher = repository.getReferenceById(id);
-        var teacherDto = new RegisterTeacherDto(teacher.getName(), teacher.getLogin());
-        if(!userModel.getRoleModels().get(0).getRoleName().name().equals("ADMIN")) {
-            if (!userModel.getLogin().equalsIgnoreCase(teacherDto.login())) {
-                id = repository.findByLogin(userModel.getLogin());
-                teacher = repository.getReferenceById(id);
-            }
-        }
         var classes = classesRepository.findByIdTeacher(id);
-        return ResponseEntity.ok(new DetailTeacherClassDto(teacher, classes));
+        return ResponseEntity.ok(new DetailTeacherClassDto(validateTeacherId.validate(id, userModel, teacher), classes));
     }
 
     @PutMapping
