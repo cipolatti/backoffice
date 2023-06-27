@@ -1,1 +1,0 @@
-alter table classes change expectedClassDate expected_class_date varchar(10);

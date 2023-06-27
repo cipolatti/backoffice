@@ -1,1 +1,0 @@
-ALTER TABLE backoffice.`user` ADD UNIQUE (login);

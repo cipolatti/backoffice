@@ -1,1 +1,0 @@
-ALTER TABLE teacher MODIFY password varchar(100);

@@ -1,1 +1,0 @@
-ALTER TABLE backoffice.`teacher` DROP COLUMN password;

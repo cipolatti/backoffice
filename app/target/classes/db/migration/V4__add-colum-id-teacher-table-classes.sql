@@ -1,1 +1,0 @@
-alter table classes add id_teacher bigint;
