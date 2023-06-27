@@ -39,6 +39,8 @@ Tecnologias utilizadas
   
 Utilizado BCrypt para criptografia das senhas.
 
+O projeto utiliza um gateway: https://github.com/cipolatti/gateway e também um server eureka: https://github.com/cipolatti/server
+
 Abaixo o payload para logar com o usuário admin (http://localhost:8082/backoffice/login) para geração do token.
 
 {
