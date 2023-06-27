@@ -30,7 +30,7 @@ public class UserModel implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private List<RoleModel> roleModels;
 
       public UserModel(RegisterUserDto data) {
         this.name = data.name();
@@ -41,12 +41,12 @@ public class UserModel implements UserDetails {
     public UserModel(String username, String password, Collection<? extends GrantedAuthority> authorities) {
           this.login = username;
           this.password = password;
-          this.roles = (List<Role>) authorities;
+          this.roleModels = (List<RoleModel>) authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        return this.roleModels;
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.unitech.backoffice.dto.classes.DetailsClassesDto;
 import com.unitech.backoffice.dto.classes.LinkClassTeacherDto;
 import com.unitech.backoffice.dto.classes.RegisterClassesDto;
 import com.unitech.backoffice.dto.classes.UpdateClassesDto;
-import com.unitech.backoffice.model.Classes;
+import com.unitech.backoffice.model.ClassesModel;
 import com.unitech.backoffice.model.enums.Status;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
@@ -30,15 +30,15 @@ public class ClassController {
 
     @PostMapping
     public ResponseEntity register(@RequestBody RegisterClassesDto data, UriComponentsBuilder uriBuilder) {
-        var classes = new Classes(data);
+        var classes = new ClassesModel(data);
         repository.save(classes);
         var uri = uriBuilder.path("/class/{id}").buildAndExpand(classes.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailsClassesDto(classes));
     }
 
     @GetMapping
-    public ResponseEntity<Page<Classes>> getAll(@PageableDefault(size = 10, sort = {"expectedClassDate"}) Pageable pagination) {
-        var page = repository.findAll(pagination).map(Classes::new);
+    public ResponseEntity<Page<ClassesModel>> getAll(@PageableDefault(size = 10, sort = {"expectedClassDate"}) Pageable pagination) {
+        var page = repository.findAll(pagination).map(ClassesModel::new);
         return ResponseEntity.ok(page);
     }
 

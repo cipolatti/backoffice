@@ -17,7 +17,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Classes {
+public class ClassesModel {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
@@ -27,20 +27,20 @@ public class Classes {
     @Column(name = "id_teacher")
     private Long idTeacher;
 
-    public Classes(RegisterClassesDto data) {
+    public ClassesModel(RegisterClassesDto data) {
         this.title = data.title();
         this.descrition = data.descrition();
         this.expectedClassDate = data.expectedClassDate();
     }
 
-    public Classes(Classes classes) {
-        this.id = classes.getId();
-        this.title = classes.getTitle();
-        this.expectedClassDate = classes.getExpectedClassDate();
+    public ClassesModel(ClassesModel classesModel) {
+        this.id = classesModel.getId();
+        this.title = classesModel.getTitle();
+        this.expectedClassDate = classesModel.getExpectedClassDate();
     }
 
-    public Classes(List<Classes> classes) {
-        for (Classes item:classes) {
+    public ClassesModel(List<ClassesModel> aClasses) {
+        for (ClassesModel item: aClasses) {
             this.id = item.getId();
             this.title = item.getTitle();
             this.descrition = item.getDescrition();
@@ -69,8 +69,8 @@ public class Classes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Classes classes = (Classes) o;
-        return getId() != null && Objects.equals(getId(), classes.getId());
+        ClassesModel classesModel = (ClassesModel) o;
+        return getId() != null && Objects.equals(getId(), classesModel.getId());
     }
 
     @Override

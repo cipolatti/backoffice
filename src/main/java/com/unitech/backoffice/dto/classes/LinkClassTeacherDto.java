@@ -1,6 +1,6 @@
 package com.unitech.backoffice.dto.classes;
 
-import com.unitech.backoffice.model.Classes;
+import com.unitech.backoffice.model.ClassesModel;
 import jakarta.validation.constraints.NotNull;
 
 public record LinkClassTeacherDto(
@@ -8,7 +8,7 @@ public record LinkClassTeacherDto(
         Long id,
         @NotNull
         Long idTeacher) {
-    public LinkClassTeacherDto(Classes classes) {
-        this(classes.getId(), classes.getIdTeacher());
+    public LinkClassTeacherDto(ClassesModel classesModel) {
+        this(classesModel.getId(), classesModel.getIdTeacher());
     }
 }

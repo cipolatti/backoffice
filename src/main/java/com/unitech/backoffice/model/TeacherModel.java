@@ -17,7 +17,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Teacher{
+public class TeacherModel {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
@@ -25,7 +25,7 @@ public class Teacher{
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public Teacher(RegisterTeacherDto data) {
+    public TeacherModel(RegisterTeacherDto data) {
         this.name = data.name();
         this.login = data.login();
         this.status = Status.PENDING;
@@ -48,7 +48,7 @@ public class Teacher{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Teacher teacher = (Teacher) o;
+        TeacherModel teacher = (TeacherModel) o;
         return getId() != null && Objects.equals(getId(), teacher.getId());
     }
 

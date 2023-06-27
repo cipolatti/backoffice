@@ -1,7 +1,7 @@
 package com.unitech.backoffice.controller;
 
 import com.unitech.backoffice.dto.teacher.*;
-import com.unitech.backoffice.model.Teacher;
+import com.unitech.backoffice.model.TeacherModel;
 import com.unitech.backoffice.model.UserModel;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
@@ -32,7 +32,7 @@ public class TeacherController {
     @PostMapping
     @Transactional
     public ResponseEntity register(@RequestBody @Valid RegisterTeacherDto data, UriComponentsBuilder uriBuilder) {
-        var teacher = new Teacher(data);
+        var teacher = new TeacherModel(data);
         repository.save(teacher);
         var uri = uriBuilder.path("/teacher/{id}").buildAndExpand(teacher.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailsTeacherDto(teacher));
@@ -48,7 +48,7 @@ public class TeacherController {
     public ResponseEntity detail(@PathVariable Long id, @AuthenticationPrincipal UserModel userModel) {
         var teacher = repository.getReferenceById(id);
         var teacherDto = new RegisterTeacherDto(teacher.getName(), teacher.getLogin());
-        if(!userModel.getRoles().get(0).getRoleName().name().equals("ADMIN")) {
+        if(!userModel.getRoleModels().get(0).getRoleName().name().equals("ADMIN")) {
             if (!userModel.getLogin().equalsIgnoreCase(teacherDto.login())) {
                 id = repository.findByLogin(userModel.getLogin());
                 teacher = repository.getReferenceById(id);

@@ -50,12 +50,11 @@ public class SecurityConfigurations {
 
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://localhost:8082");
         configuration.setAllowedMethods(List.of(
                 HttpMethod.GET.name(),
                 HttpMethod.PUT.name(),
-                HttpMethod.POST.name(),
-                HttpMethod.DELETE.name()
+                HttpMethod.POST.name()
         ));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

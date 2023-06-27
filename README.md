@@ -1,5 +1,4 @@
-# backoffice
-Backoffice de professores
+# Backoffice de professores / aulas
 
 Objetivo:
 
@@ -36,10 +35,11 @@ Tecnologias utilizadas
 - MySQL
 - Spring Security
 - JWT
+- Eureka
   
 Utilizado BCrypt para criptografia das senhas.
 
-Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) para geração do token.
+Abaixo o payload para logar com o usuário admin (http://localhost:8082/backoffice/login) para geração do token.
 
 {
 
@@ -49,7 +49,7 @@ Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) p
 
   Exemplos de requisições e payload
 
-  - Login: [POST] http://localhost:8080/login
+  - Login: [POST] http://localhost:8082/backoffice/login
 
     Payload exemplo:
 
@@ -59,7 +59,7 @@ Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) p
     "password": "123456789"
  }
 
-  - Cadastro de professor: [POST] http://localhost:8080/teacher
+  - Cadastro de professor: [POST] http://localhost:8082/backoffice/teacher
     
   Payload exemplo:
     
@@ -70,9 +70,9 @@ Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) p
     
 }
 
-- Listar todos os professores: [GET] http://localhost:8080/teacher
-- Detalhar informações de um professor: [GET] http://localhost:8080/teacher/1
-- Atualizar dados de um professor: [PUT] http://localhost:8080/teacher
+- Listar todos os professores: [GET] http://localhost:8082/backoffice/teacher
+- Detalhar informações de um professor: [GET] http://localhost:8082/backoffice/teacher/1
+- Atualizar dados de um professor: [PUT] http://localhost:8082/backoffice/teacher
  
   Payload exemplo:
 
@@ -82,7 +82,7 @@ Abaixo o payload para logar com o usuário admin (http://localhost:8080/login) p
     "name": "Teacher"
 }
 
--Atualizar status professor: [PATCH] http://localhost:8080/teacher
+-Atualizar status professor: [PATCH] http://localhost:8082/backoffice/teacher
 
 Payload exemplo:
 
@@ -92,7 +92,7 @@ Payload exemplo:
     "status": "APPROVED"
 }
     
-- Cadastro de aula: [POST] http://localhost:8080/class
+- Cadastro de aula: [POST] http://localhost:8082/backoffice/class
 
   Payload exemplo:
 
@@ -103,8 +103,8 @@ Payload exemplo:
     "expectedClassDate": "24/06/2023"
   }
 
-- Listar aulas: [GET] http://localhost:8080/class
-- Atualizar aula: [PUT] http://localhost:8080/class
+- Listar aulas: [GET] http://localhost:8082/backoffice/class
+- Atualizar aula: [PUT] http://localhost:8082/backoffice/class
 
   Payload exemplo:
 
@@ -115,7 +115,7 @@ Payload exemplo:
     "expectedClassDate": "23/06/2023"
   }
 
-- Vincular aula a um professor: [PATH] http://localhost:8080/class
+- Vincular aula a um professor: [PATH] http://localhost:8082/backoffice/class
 
   Payload exemplo:
 

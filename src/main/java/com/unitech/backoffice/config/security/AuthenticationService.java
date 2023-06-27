@@ -1,5 +1,6 @@
-package com.unitech.backoffice.model;
+package com.unitech.backoffice.config.security;
 
+import com.unitech.backoffice.model.UserModel;
 import com.unitech.backoffice.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
