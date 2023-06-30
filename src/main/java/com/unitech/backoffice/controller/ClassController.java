@@ -5,7 +5,7 @@ import com.unitech.backoffice.dto.classes.LinkClassTeacherDto;
 import com.unitech.backoffice.dto.classes.RegisterClassesDto;
 import com.unitech.backoffice.dto.classes.UpdateClassesDto;
 import com.unitech.backoffice.model.ClassesModel;
-import com.unitech.backoffice.model.enums.Status;
+import com.unitech.backoffice.model.validations.ValidateStatusApprovedTeacher;
 import com.unitech.backoffice.repository.ClassesRepository;
 import com.unitech.backoffice.repository.TeacherRepository;
 import jakarta.transaction.Transactional;
@@ -27,6 +27,9 @@ public class ClassController {
 
     @Autowired
     private TeacherRepository teacherRepository;
+
+    @Autowired
+    ValidateStatusApprovedTeacher validateStatusApprovedTeacher;
 
     @PostMapping
     public ResponseEntity register(@RequestBody RegisterClassesDto data, UriComponentsBuilder uriBuilder) {
@@ -54,8 +57,7 @@ public class ClassController {
     @Transactional
     public ResponseEntity linkClassTeacher(@RequestBody @Valid LinkClassTeacherDto data) {
         var classes = repository.getReferenceById(data.id());
-        var teacher = teacherRepository.getReferenceById(data.idTeacher());
-        if(teacher.getStatus() == Status.APPROVED){
+        if(validateStatusApprovedTeacher.validate(data.idTeacher())){
             classes.linkClassTeacher(data);
         }
         return  ResponseEntity.ok(new LinkClassTeacherDto(classes));
