@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/class")
 public class ClassController {
 
+    public static final int ITENS_POR_PAGINA = 10;
     @Autowired
     private ClassesRepository repository;
 
@@ -40,7 +41,7 @@ public class ClassController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ClassesModel>> getAll(@PageableDefault(size = 10, sort = {"expectedClassDate"}) Pageable pagination) {
+    public ResponseEntity<Page<ClassesModel>> getAll(@PageableDefault(size = ITENS_POR_PAGINA, sort = {"expectedClassDate"}) Pageable pagination) {
         var page = repository.findAll(pagination).map(ClassesModel::new);
         return ResponseEntity.ok(page);
     }

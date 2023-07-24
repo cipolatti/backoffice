@@ -9,6 +9,7 @@ import com.unitech.backoffice.repository.TeacherRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -69,5 +70,10 @@ public class TeacherController {
         var teacher = repository.getReferenceById(data.id());
         teacher.updateStatus(data);
         return ResponseEntity.ok(new DetailsTeacherDto(teacher));
+    }
+
+    @GetMapping("/port")
+    public String getPort(@Value("${local.server.port}") String port) {
+        return String.format("Requisição pela porta " + port);
     }
 }

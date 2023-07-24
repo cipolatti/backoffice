@@ -36,6 +36,7 @@ public class ClassesModel {
     public ClassesModel(ClassesModel classesModel) {
         this.id = classesModel.getId();
         this.title = classesModel.getTitle();
+        this.descrition = classesModel.getDescrition();
         this.expectedClassDate = classesModel.getExpectedClassDate();
     }
 
